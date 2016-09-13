@@ -1,6 +1,6 @@
 # A simple demo of elastic docker agents with GoCD
 
-In this demo, I build a Docker image that utilizes the experimental golang agent (https://github.com/gocd-contrib/gocd-golang-agent)
+In this demo, I build a Docker image that utilizes the experimental golang agent (https://github.com/gocd-contrib/gocd-golang-agent) and can be used with the GoCD docker elastic agents plugin.
 
 ## Install GoCD server, version 16.9 or greater
 
@@ -39,10 +39,10 @@ So build the agent and you're ready to go
 
 * Add an agent auto-register key to the server element of the config XML:
 
-    agentAutoRegisterKey="1234567890abcde"
+    `<server ... agentAutoRegisterKey="1234567890abcde" ... />`
 
-* Add test pipeline configuration. Embed the below XML inside the <pipelines> element
-
+* Add test pipeline configuration. Embed the below XML inside the `<pipelines>` element
+~~~~
      <pipeline name="ls-elastic">
       <materials>
         <git url="https://github.com/djrice/trigger.git" />
@@ -63,6 +63,7 @@ So build the agent and you're ready to go
         </jobs>
       </stage>
     </pipeline>
+~~~~
 
 ## Trigger the pipeline
 

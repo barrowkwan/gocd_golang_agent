@@ -1,24 +1,16 @@
 FROM phusion/baseimage
 
-# install agent
-RUN echo deb https://dl.bintray.com/alex-hal9000/gocd-golang-agent master main | tee -a /etc/apt/sources.list
-RUN apt-get -y install apt-transport-https
-RUN apt-get -y update
-RUN apt-get -y --force-yes install gocd-golang-agent
-
-# add ubuntu-lxc apt-get repo (for newer version of golang)
-RUN apt-get -y install software-properties-common python-software-properties
-RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable
-RUN apt-get -y update
-
-# install project specific packages
-RUN apt-get -y install golang git
-
-RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get update
-RUN apt-get install -y openjdk-8-jdk
-RUN apt-get install -y ant
+RUN apt-get install wget
 
+# install agent
+RUN wget -O /usr/bin/gocd-golang-agent https://bintray.com/gocd-contrib/gocd_golang_goagent/download_file?file_path=goagent%2F1.1%2Fgocd-golang-agent_linux_amd64_1.1
+RUN chmod +x /usr/bin/gocd-golang-agent
+
+# install git
+RUN apt-get install -y git
+
+# install script that starts agent
 COPY dockerfiles/start-agent.sh /
 RUN chmod +x /start-agent.sh
 ENTRYPOINT ["/start-agent.sh"]

@@ -31,7 +31,7 @@ But if you want to quickly understand what's happening here, this docker image:
 * Installs git
 * Translates env vars passed by the elastic agents plugin to ones that gocd-golang-agent understands (see dockerfiles/start-agent.sh)
 
-So build the agent and you're ready to go
+So build the docker image for the agent and you're ready to go
 
     ./build.sh
 
